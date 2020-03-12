@@ -21,6 +21,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 from config import Config
 
+
 def service_setup():
     """
         setup the service object for use by the rest of the script
@@ -44,35 +45,13 @@ def service_setup():
     creds['installed']['project_id'] = Config.api_project_id
 
     flow = InstalledAppFlow.from_client_config(creds, Config.api_scopes)
+
+    # todo extract token (access token) and refresh token, store in env for later use - figure out how to use
     creds = flow.run_local_server(port=0)
 
     service = build('gmail', 'v1', credentials=creds)
 
     return service
-
-
-def labels_list(service):
-    """
-    list the labels in use in the users gmail account
-
-    this was from a previous example and isn't really used in this script
-
-    listing labels is "safe", which is why it was chosen as the quick start
-    example I think
-
-    :param service:
-    :return:
-    """
-
-    results = service.users().labels().list(userId='me').execute()
-    labels = results.get('labels', [])
-
-    if not labels:
-        print('No labels found')
-    else:
-        print('Labels:')
-        for l in labels:
-            print(l['name'])
 
 
 def create_msg():
@@ -151,7 +130,6 @@ if __name__ == '__main__':
 
     svc = service_setup()
 
-    # labels_list(svc)
     msg = create_msg()
 
     print(send_msg(svc, msg))
