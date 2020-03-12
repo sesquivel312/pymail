@@ -140,4 +140,8 @@ cython_debug/
 # local changes
 .idea/
 envs/
+# exclude the messages directory generally
+messages/
+# but keep the example message in the messages dir
+!messages/example_message.json
 
