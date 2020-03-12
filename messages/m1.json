@@ -1,0 +1,6 @@
+{
+  "from": "from@email.org",
+  "to": "to@other.org",
+  "subject": "pymail via file 1",
+  "body": "this is pymail message #1"
+}
